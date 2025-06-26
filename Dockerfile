@@ -33,11 +33,15 @@ WORKDIR /backend
 
 # Copy only dependencies
 COPY ./backend/pyproject.toml ./backend/poetry.lock* ./
+COPY ./backend/README.md ./
 
 # Install dependencies
 # --only main: Skip installing packages listed in the [tool.poetry.dev-dependencies] section
 RUN poetry config virtualenvs.create false \
     && poetry install --no-interaction --no-ansi --only main
+
+RUN ls -l /backend
+RUN ls -l /backend/app
 
 # Copy the rest of backend
 COPY ./backend .
